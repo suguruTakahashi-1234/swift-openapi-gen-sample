@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		440DEF6B2C056BF5006F0B32 /* OpenApiGenSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440DEF6A2C056BF5006F0B32 /* OpenApiGenSampleApp.swift */; };
-		440DEF6D2C056BF5006F0B32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440DEF6C2C056BF5006F0B32 /* ContentView.swift */; };
 		440DEF6F2C056BF6006F0B32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440DEF6E2C056BF6006F0B32 /* Assets.xcassets */; };
 		440DEF732C056BF6006F0B32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440DEF722C056BF6006F0B32 /* Preview Assets.xcassets */; };
 		440DEF7C2C056C35006F0B32 /* OpenApiGenSamplePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 440DEF7B2C056C35006F0B32 /* OpenApiGenSamplePackage */; };
@@ -17,7 +16,6 @@
 /* Begin PBXFileReference section */
 		440DEF672C056BF5006F0B32 /* OpenApiGenSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenApiGenSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		440DEF6A2C056BF5006F0B32 /* OpenApiGenSampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenApiGenSampleApp.swift; sourceTree = "<group>"; };
-		440DEF6C2C056BF5006F0B32 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		440DEF6E2C056BF6006F0B32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440DEF702C056BF6006F0B32 /* OpenApiGenSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenApiGenSample.entitlements; sourceTree = "<group>"; };
 		440DEF722C056BF6006F0B32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -58,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				440DEF6A2C056BF5006F0B32 /* OpenApiGenSampleApp.swift */,
-				440DEF6C2C056BF5006F0B32 /* ContentView.swift */,
 				440DEF6E2C056BF6006F0B32 /* Assets.xcassets */,
 				440DEF702C056BF6006F0B32 /* OpenApiGenSample.entitlements */,
 				440DEF712C056BF6006F0B32 /* Preview Content */,
@@ -154,7 +151,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				440DEF6D2C056BF5006F0B32 /* ContentView.swift in Sources */,
 				440DEF6B2C056BF5006F0B32 /* OpenApiGenSampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

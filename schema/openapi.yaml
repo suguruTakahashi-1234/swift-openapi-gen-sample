@@ -8,6 +8,7 @@ paths:
   /users:
     get:
       summary: Get a list of users
+      operationId: getUsers
       responses:
         200:
           description: Success
@@ -16,10 +17,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
+                  $ref: "#/components/schemas/User"
   /users/{id}:
     get:
       summary: Get a user by ID
+      operationId: getUserById
       parameters:
         - in: path
           name: id
@@ -33,11 +35,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
 components:
   schemas:
     User:
       type: object
+      required:
+        - id
+        - name
+        - username
+        - email
+        - address
+        - phone
+        - website
+        - company
       properties:
         id:
           type: integer
@@ -49,6 +60,12 @@ components:
           type: string
         address:
           type: object
+          required:
+            - street
+            - suite
+            - city
+            - zipcode
+            - geo
           properties:
             street:
               type: string
@@ -60,6 +77,9 @@ components:
               type: string
             geo:
               type: object
+              required:
+                - lat
+                - lng
               properties:
                 lat:
                   type: string
@@ -71,6 +91,10 @@ components:
           type: string
         company:
           type: object
+          required:
+            - name
+            - catchPhrase
+            - bs
           properties:
             name:
               type: string

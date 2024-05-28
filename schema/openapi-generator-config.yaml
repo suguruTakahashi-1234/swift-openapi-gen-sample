@@ -5,7 +5,4 @@ generate:
   - client
   # - server
 
-additionalImports:
-  - APITypes
-
 accessModifier: public

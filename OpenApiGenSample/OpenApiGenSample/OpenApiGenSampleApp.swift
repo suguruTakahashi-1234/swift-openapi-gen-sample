@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OpenApiGenSamplePackage
 
 @main
 struct OpenApiGenSampleApp: App {
