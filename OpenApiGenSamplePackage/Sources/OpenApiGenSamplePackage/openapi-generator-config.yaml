@@ -1,0 +1,11 @@
+# Ref: https://swiftpackageindex.com/apple/swift-openapi-generator/main/documentation/swift-openapi-generator/configuring-the-generator
+
+generate:
+  - types
+  - client
+  # - server
+
+additionalImports:
+  - APITypes
+
+accessModifier: public
