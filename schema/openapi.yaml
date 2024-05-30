@@ -18,6 +18,12 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /users/{id}:
     get:
       summary: Get a user by ID
@@ -36,6 +42,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     User:
@@ -102,3 +114,10 @@ components:
               type: string
             bs:
               type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string

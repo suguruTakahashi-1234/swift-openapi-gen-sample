@@ -19,7 +19,11 @@ let package = Package(
         .package(url: "https://github.com/swift-server/swift-openapi-async-http-client", from: "1.0.0"), // Use AsyncHTTPClient
 
         // toast
-        .package(url: "https://github.com/sanzaru/SimpleToast.git", from: "0.0.1"),
+        .package(url: "https://github.com/sanzaru/SimpleToast.git", from: "0.8.1"),
+        
+        // shimmer animation
+        .package(url: "https://github.com/markiv/SwiftUI-Shimmer.git", from: "1.5.0"),
+        
     ],
     targets: [
         .target(
@@ -28,6 +32,7 @@ let package = Package(
                 .product(name: "OpenAPIURLSession", package: "swift-openapi-urlsession"),
                 .product(name: "OpenAPIAsyncHTTPClient", package: "swift-openapi-async-http-client"),
                 .product(name: "SimpleToast", package: "SimpleToast"),
+                .product(name: "Shimmer", package: "SwiftUI-Shimmer"),
             ]
         ),
         .testTarget(

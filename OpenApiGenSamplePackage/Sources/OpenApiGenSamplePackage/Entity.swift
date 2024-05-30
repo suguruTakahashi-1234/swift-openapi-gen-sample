@@ -1,6 +1,28 @@
 
 import Foundation
 
+enum APIType: CaseIterable {
+    case all
+    case getUsers
+    case getUser
+}
+
+enum APIError: LocalizedError {
+    case notFound
+    case undocumented
+    
+    // alert title
+    var errorDescription: String? {
+        "\(self)"
+    }
+}
+
+struct AllResponse: Codable {
+    let getUsers: [Components.Schemas.User]
+    let getUserById: [Components.Schemas.User]
+}
+
+
 // MARK: - Sample Entity
 
 enum CityType: Codable {
@@ -24,3 +46,4 @@ struct Person: Codable {
 struct Persons: Codable {
     var persons: [Person]
 }
+
