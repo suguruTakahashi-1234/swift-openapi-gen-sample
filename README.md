@@ -22,6 +22,8 @@
 
 #### Actions
 
+※ iOS Repo Only
+
 ![](./assets/actions.png)
 
 #### Secrets And Variables
