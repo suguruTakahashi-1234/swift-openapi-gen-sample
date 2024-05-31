@@ -65,8 +65,8 @@ jobs:
         branch: feature/code-gen-from-open-api-spec
         title: "【OpenAPI】Update generated code from OpenAPI spec"
         body: "This PR updates the generated code from the latest OpenAPI spec."
-        labels: ""
-        base: main # Ensure this matches the default branch of the ios_repo
+        labels: "enhancement"
+        path: ios-repo
 
     - name: Log PR creation completed
       run: echo "Pull Request created"
