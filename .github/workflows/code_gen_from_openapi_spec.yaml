@@ -20,7 +20,12 @@ env:
 
 jobs:
   codegen:
+    # Ref: https://github.com/actions/runner-images
     runs-on: macos-14
+    env:
+      # Ref: https://github.com/actions/runner-images/blob/main/images/macos/macos-14-Readme.md#xcode
+      DEVELOPER_DIR: /Applications/Xcode_15.4.app/Contents/Developer
+
     timeout-minutes: 300
 
     steps:
