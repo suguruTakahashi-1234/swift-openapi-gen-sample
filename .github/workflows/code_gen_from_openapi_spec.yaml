@@ -3,7 +3,6 @@ name: Code Gen From OpenAPI Spec
 on:
   repository_dispatch:
     types: [update-open-api-spec]
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -77,7 +76,7 @@ jobs:
           
           **Commit Details:**
           - Commit Message: ${{ github.event.client_payload.commit_message }}
-          - Commit SHA: [${{ github.event.client_payload.commit_sha }}](https://github.com/${{ github.repository }}/commit/${{ github.event.client_payload.commit_sha }})
+          - Commit SHA: [${{ github.event.client_payload.commit_sha }}](https://github.com/${{ env.server_side_repo }}/commit/${{ github.event.client_payload.commit_sha }})
           
           Please review the changes and ensure everything is in order before merging.
         labels: "enhancement"
