@@ -15,11 +15,16 @@ env:
 jobs:
   trigger-codegen:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Get commit message
+        id: get_commit_message
+        run: echo "commit_message=$(git log -1 --pretty=format:'%s')" >> $GITHUB_OUTPUT
+
       - name: Trigger iOS repo workflow
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.IOS_TEAM_PAT }} # Permission: repo, read:org, project
           repository: ${{ env.ios_repo }}
           event-type: ${{ env.event_type }}
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "branch": "${{ github.ref_name }}", "commit_message": "${{ steps.get_commit_message.outputs.commit_message }}"}'
