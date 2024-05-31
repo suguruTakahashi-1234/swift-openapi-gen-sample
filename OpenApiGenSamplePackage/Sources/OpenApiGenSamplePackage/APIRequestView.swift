@@ -93,6 +93,7 @@ public struct APIRequestView: View {
             .redacted(reason: isLoading ? .placeholder : [])
             .shimmering(active: isLoading)
         }
+        .scrollDismissesKeyboard(.immediately)
         .simpleToast(isPresented: $showToast, options: SimpleToastOptions(alignment: .bottom, hideAfter: 1)) {
             Label {
                 Text("Copy")
