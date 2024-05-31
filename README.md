@@ -49,4 +49,3 @@
 - GitHub Actions
   - https://github.com/peter-evans/repository-dispatch
   - https://github.com/peter-evans/create-pull-request
-
