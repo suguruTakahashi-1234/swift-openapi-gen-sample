@@ -71,7 +71,14 @@ jobs:
         # token: ${{ secrets.IOS_TEAM_PAT }}
         commit-message: "【OpenAPI】Code Gen from OpenAPI spec - ${{ github.event.client_payload.commit_message }} [ci skip]"
         branch: feature/code-gen-from-open-api-spec
-        title: "【OpenAPI】Code Gen from OpenAPI spec -  ${{ github.event.client_payload.commit_message }}"
-        body: This PR updates the generated code from the latest OpenAPI spec.
+        title: "【OpenAPI】Code Gen from OpenAPI spec - ${{ github.event.client_payload.commit_message }}"
+        body: |
+          This PR updates the generated code from the latest OpenAPI spec.
+          
+          **Commit Details:**
+          - Commit Message: ${{ github.event.client_payload.commit_message }}
+          - Commit SHA: [${{ github.event.client_payload.commit_sha }}](https://github.com/${{ env.server_side_repo }}/commit/${{ github.event.client_payload.commit_sha }})
+          
+          Please review the changes and ensure everything is in order before merging.
         labels: "enhancement"
         path: ios-repo
