@@ -1,0 +1,24 @@
+name: Trigger openapi-update
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - server-side-repository/openapi.yaml
+
+env:
+  ios_repo: suguruTakahashi-1234/swift-openapi-gen-sample
+  event_type: openapi-update
+
+jobs:
+  trigger-codegen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger iOS repo workflow
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.IOS_TEAM_PAT }} # Permission: repo, read:org, project
+          repository: ${{ env.ios_repo }}
+          event-type: ${{ env.event_type }}
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

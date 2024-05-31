@@ -1,0 +1,68 @@
+name: API Request Code Gen
+
+on:
+  repository_dispatch:
+    types: [openapi-update]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  gh_token: ${{ secrets.IOS_TEAM_PAT }}
+  # iOS
+  ios_repo: suguruTakahashi-1234/swift-openapi-gen-sample
+  ios_openapi_path: schema/openapi.yaml
+  # Server Side
+  server_side_repo: suguruTakahashi-1234/swift-openapi-gen-sample
+  server_side_openapi_path: server-side-repository/openapi.yaml
+
+jobs:
+  codegen:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Log start of workflow
+      run: echo "Starting Code Generation and PR Creation workflow"
+
+    - name: Checkout iOS repo
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ env.ios_repo }}
+        path: ios-repo
+        token: ${{ env.gh_token }}
+
+    - name: Checkout server repo
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ env.server_side_repo }}
+        path: server-repo
+        ref: ${{ github.event.client_payload.ref || 'refs/heads/main' }}
+        token: ${{ env.gh_token }}
+
+    - name: Copy and Show OpenAPI spec
+      run: |
+        echo "Copying OpenAPI spec from server repository to iOS repository"
+        cp -f server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}
+        echo "OpenAPI spec copied to iOS repository"
+        echo "Showing diff of OpenAPI spec"
+        diff server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }} || echo "No differences found"
+
+    - name: Generate code from OpenAPI spec
+      run: |
+        echo "Generating code from OpenAPI spec"
+        make -C ios-repo open-api-gen
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ env.gh_token }}
+        commit-message: 【OpenAPI】Update generated code from OpenAPI spec
+        branch: feature/code-gen-from-open-api-spec
+        title: "【OpenAPI】Update generated code from OpenAPI spec"
+        body: "This PR updates the generated code from the latest OpenAPI spec."
+        labels: ""
+
+    - name: Log PR creation completed
+      run: echo "Pull Request created"
