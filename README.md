@@ -1,5 +1,7 @@
 # Swift OpenAPI Generator Sample
 
+### 概要
+
 以下の 2 点を検証したリポジトリになります。
 
 - Apple 公式の [swift-openapi-generator](https://github.com/apple/swift-openapi-generator) を用いて、`openapi.yaml` から API Request に必要なコードを生成して、それを実行する iOS プロジェクトの検証
