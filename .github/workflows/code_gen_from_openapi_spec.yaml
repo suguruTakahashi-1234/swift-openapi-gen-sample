@@ -39,24 +39,31 @@ jobs:
         ref: ${{ github.event.client_payload.ref || 'refs/heads/main' }}
         token: ${{ env.gh_token }}
 
-    - name: Copy and Show OpenAPI spec
+    - name: Check for differences in OpenAPI spec
+      id: check_diff
       run: |
-        diff server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}
-        cp -f server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}
+        if diff server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}; then
+          echo "No changes in OpenAPI spec."
+          exit 0
+        else
+          echo "Changes detected in OpenAPI spec."
+          cp -f server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}
+        fi
 
     - name: Generate code from OpenAPI spec
+      if: success()
       run: |
         make -C ios-repo open-api-gen
         git -C ios-repo status
         git -C ios-repo diff
 
     - name: Create Pull Request
+      if: success()
       uses: peter-evans/create-pull-request@v6
       with:
-        token: ${{ env.gh_token }}
-        commit-message: "【OpenAPI】Update generated code from OpenAPI spec"
+        commit-message: 【OpenAPI】Update generated code from OpenAPI spec
         branch: feature/code-gen-from-open-api-spec
-        title: "【OpenAPI】Update generated code from OpenAPI spec"
-        body: "This PR updates the generated code from the latest OpenAPI spec."
+        title: 【OpenAPI】Update generated code from OpenAPI spec
+        body: This PR updates the generated code from the latest OpenAPI spec.
         labels: "enhancement"
         path: ios-repo
