@@ -24,9 +24,6 @@ jobs:
     timeout-minutes: 300
 
     steps:
-    - name: Log start of workflow
-      run: echo "Starting Code Generation and PR Creation workflow"
-
     - name: Checkout iOS repo
       uses: actions/checkout@v4
       with:
@@ -34,7 +31,7 @@ jobs:
         path: ios-repo
         token: ${{ env.gh_token }}
 
-    - name: Checkout server repo
+    - name: Checkout Server Side repo
       uses: actions/checkout@v4
       with:
         repository: ${{ env.server_side_repo }}
@@ -44,17 +41,12 @@ jobs:
 
     - name: Copy and Show OpenAPI spec
       run: |
-        echo "Copying OpenAPI spec from server repository to iOS repository"
+        diff server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}
         cp -f server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}
-        echo "OpenAPI spec copied to iOS repository"
-        echo "Showing diff of OpenAPI spec"
-        diff server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }} || echo "No differences found"
 
     - name: Generate code from OpenAPI spec
       run: |
-        echo "Generating code from OpenAPI spec"
         make -C ios-repo open-api-gen
-        echo "Git changes after code generation"
         git -C ios-repo status
         git -C ios-repo diff
 
@@ -68,6 +60,3 @@ jobs:
         body: "This PR updates the generated code from the latest OpenAPI spec."
         labels: "enhancement"
         path: ios-repo
-
-    - name: Log PR creation completed
-      run: echo "Pull Request created"
