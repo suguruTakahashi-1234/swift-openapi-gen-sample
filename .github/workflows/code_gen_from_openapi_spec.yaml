@@ -12,11 +12,12 @@ permissions:
 env:
   # gh_token: ${{ secrets.IOS_TEAM_PAT }} # IOS_TEAM_PAT: project, read:org, repo
   # iOS
-  ios_repo: suguruTakahashi-1234/swift-openapi-gen-sample
   ios_openapi_path: schema/openapi.yaml
   # Server Side
-  server_side_repo: suguruTakahashi-1234/swift-openapi-gen-sample
-  server_side_openapi_path: server-side-repository/openapi.yaml
+  # server_side_repo: suguruTakahashi-1234/swift-openapi-gen-sample
+  # server_side_openapi_path: server-side-repository/openapi.yaml
+  server_side_repo: suguruTakahashi-1234/deploy-swagger-pages
+  server_side_openapi_path: doc/openapi.yaml
 
 jobs:
   code-gen-from-open-api-spec:
@@ -32,7 +33,6 @@ jobs:
     - name: Checkout iOS repo
       uses: actions/checkout@v4
       with:
-        repository: ${{ env.ios_repo }}
         path: ios-repo
         # token: ${{ env.gh_token }}
 
