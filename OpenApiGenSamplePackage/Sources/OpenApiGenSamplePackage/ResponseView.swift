@@ -44,6 +44,7 @@ struct ResponseView<T: Encodable>: View {
         } label: {
             Text("Response")
         }
+        .isHidden(objects.isEmpty)
     }
     
     func onTapElement(object: Any) {

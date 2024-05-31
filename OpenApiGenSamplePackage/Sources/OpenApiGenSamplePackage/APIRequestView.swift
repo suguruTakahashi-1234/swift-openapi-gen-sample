@@ -26,7 +26,7 @@ public struct APIRequestView: View {
             transport: URLSessionTransport()
         )
     }
-    
+
     public var body: some View {
         List {
             Section("Request") {
@@ -108,6 +108,14 @@ public struct APIRequestView: View {
             .padding(.bottom)
         }
         .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    onTapCleaner()
+                } label : {
+                    Image(systemName: "wand.and.stars")
+                }
+            }
+
             ToolbarItem(placement: .status) {
                 Button {
                     Task {
@@ -131,6 +139,14 @@ public struct APIRequestView: View {
         }
     }
     
+    func onTapCleaner() {
+        getUsersResponse = []
+        getUserByIdResponse = []
+        allResponse = []
+        
+        userId = 1
+    }
+
     func onTapPlay() async {
         
         switch selectedApi {
