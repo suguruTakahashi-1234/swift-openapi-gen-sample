@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Get commit message
         id: get_commit_message
         run: echo "commit_message=$(git log -1 --pretty=format:'%s')" >> $GITHUB_OUTPUT

@@ -69,9 +69,9 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         # token: ${{ secrets.IOS_TEAM_PAT }}
-        commit-message: "【OpenAPI】Update generated code from OpenAPI spec - ${{ github.event.client_payload.commit_message }} [ci skip]"
+        commit-message: "【OpenAPI】Code Gen from OpenAPI spec - ${{ github.event.client_payload.commit_message }} [ci skip]"
         branch: feature/code-gen-from-open-api-spec
-        title: "【OpenAPI】Update generated code from OpenAPI spec - ${{ github.event.client_payload.commit_message }}"
+        title: "【OpenAPI】Code Gen from OpenAPI spec -  ${{ github.event.client_payload.commit_message }}"
         body: This PR updates the generated code from the latest OpenAPI spec.
         labels: "enhancement"
         path: ios-repo
