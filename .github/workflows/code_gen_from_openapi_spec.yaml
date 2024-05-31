@@ -19,7 +19,7 @@ env:
   server_side_openapi_path: server-side-repository/openapi.yaml
 
 jobs:
-  codegen:
+  code-gen-from-open-api-spec:
     # Ref: https://github.com/actions/runner-images
     runs-on: macos-14
     env:
@@ -48,22 +48,24 @@ jobs:
       id: check_diff
       run: |
         if diff server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}; then
-          echo "No changes in OpenAPI spec."
+          echo "changes_detected=false" >> $GITHUB_OUTPUT
+          echo "No changes in OpenAPI spec. Exiting."
           exit 0
         else
-          echo "Changes detected in OpenAPI spec."
+          echo "changes_detected=true" >> $GITHUB_OUTPUT
+          echo "Changes detected in OpenAPI spec. Proceeding with code generation."
           cp -f server-repo/${{ env.server_side_openapi_path }} ios-repo/${{ env.ios_openapi_path }}
         fi
 
     - name: Generate code from OpenAPI spec
-      if: success()
+      if: steps.check_diff.outputs.changes_detected == 'true'
       run: |
         make -C ios-repo open-api-gen
         git -C ios-repo status
         git -C ios-repo diff
 
     - name: Create Pull Request
-      if: success()
+      if: steps.check_diff.outputs.changes_detected == 'true'
       uses: peter-evans/create-pull-request@v6
       with:
         # token: ${{ secrets.IOS_TEAM_PAT }}
