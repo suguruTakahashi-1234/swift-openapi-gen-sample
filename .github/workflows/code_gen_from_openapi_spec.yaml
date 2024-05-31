@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
 
 env:
-  gh_token: ${{ secrets.IOS_TEAM_PAT }} # IOS_TEAM_PAT: project, read:org, repo
+  # gh_token: ${{ secrets.IOS_TEAM_PAT }} # IOS_TEAM_PAT: project, read:org, repo
   # iOS
   ios_repo: suguruTakahashi-1234/swift-openapi-gen-sample
   ios_openapi_path: schema/openapi.yaml
@@ -34,7 +34,7 @@ jobs:
       with:
         repository: ${{ env.ios_repo }}
         path: ios-repo
-        token: ${{ env.gh_token }}
+        # token: ${{ env.gh_token }}
 
     - name: Checkout Server Side repo
       uses: actions/checkout@v4
@@ -42,7 +42,7 @@ jobs:
         repository: ${{ env.server_side_repo }}
         path: server-repo
         ref: ${{ github.event.client_payload.ref || 'refs/heads/main' }}
-        token: ${{ env.gh_token }}
+        # token: ${{ env.gh_token }}
 
     - name: Check for differences in OpenAPI spec
       id: check_diff
@@ -66,7 +66,8 @@ jobs:
       if: success()
       uses: peter-evans/create-pull-request@v6
       with:
-        commit-message: 【OpenAPI】Update generated code from OpenAPI spec
+        # token: ${{ secrets.IOS_TEAM_PAT }}
+        commit-message: 【OpenAPI】Update generated code from OpenAPI spec [ci skip]
         branch: feature/code-gen-from-open-api-spec
         title: 【OpenAPI】Update generated code from OpenAPI spec
         body: This PR updates the generated code from the latest OpenAPI spec.
