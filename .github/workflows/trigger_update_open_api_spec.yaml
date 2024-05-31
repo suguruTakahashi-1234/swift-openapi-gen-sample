@@ -13,7 +13,7 @@ env:
   event_type: update-open-api-spec
 
 jobs:
-  trigger-codegen:
+  trigger-update-open-api-spec:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,9 @@ jobs:
 
       - name: Get commit message
         id: get_commit_message
-        run: echo "commit_message=$(git log -1 --pretty=format:'%s')" >> $GITHUB_OUTPUT
+        run: |
+          echo "commit_message=$(git log -1 --pretty=format:'%s')" >> $GITHUB_OUTPUT
+          echo "commit_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Trigger iOS repo workflow
         uses: peter-evans/repository-dispatch@v3
@@ -30,4 +32,4 @@ jobs:
           token: ${{ secrets.IOS_TEAM_PAT }} # Permission: repo, read:org, project
           repository: ${{ env.ios_repo }}
           event-type: ${{ env.event_type }}
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "branch": "${{ github.ref_name }}", "commit_message": "${{ steps.get_commit_message.outputs.commit_message }}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "branch": "${{ github.ref_name }}", "commit_message": "${{ steps.get_commit_message.outputs.commit_message }}", "commit_sha": "${{ steps.get_commit_message.outputs.commit_sha }}"}'
