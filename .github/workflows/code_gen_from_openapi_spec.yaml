@@ -3,6 +3,7 @@ name: Code Gen From OpenAPI Spec
 on:
   repository_dispatch:
     types: [update-open-api-spec]
+  workflow_dispatch:
 
 permissions:
   contents: write
