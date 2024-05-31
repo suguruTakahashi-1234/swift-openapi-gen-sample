@@ -152,24 +152,30 @@ public struct APIRequestView: View {
             isLoading = false
         }
         
-        let response = try! await client.getUsers()
-        
-        switch response {
-        case .ok(let okResponse):
-            switch okResponse.body {
-            case .json(let users):
-                self.getUsersResponse = users
-            }
-        case .notFound(let notFoundResponse):
-            switch notFoundResponse.body {
-            case .json(let error):
-                print("\(error)")
-                apiError = .notFound
+        do {
+            let response = try await client.getUsers()
+
+            switch response {
+            case .ok(let okResponse):
+                switch okResponse.body {
+                case .json(let users):
+                    getUsersResponse = users
+                }
+            case .notFound(let notFoundResponse):
+                switch notFoundResponse.body {
+                case .json(let error):
+                    print("\(error)")
+                    apiError = .notFound
+                    showAlert = true
+                }
+            case .undocumented(statusCode: let statusCode, _):
+                print("\(statusCode)")
+                apiError = .undocumented
                 showAlert = true
             }
-        case .undocumented(statusCode: let statusCode, _):
-            print("\(statusCode)")
-            apiError = .undocumented
+        } catch {
+            print("\(error)")
+            apiError = .unexpected
             showAlert = true
         }
     }
@@ -180,25 +186,31 @@ public struct APIRequestView: View {
         defer {
             isLoading = false
         }
-        
-        let response = try! await client.getUserById(path: .init(id: id))
-        
-        switch response {
-        case .ok(let okResponse):
-            switch okResponse.body {
-            case .json(let user):
-                self.getUserByIdResponse = [user]
-            }
-        case .notFound(let notFoundResponse):
-            switch notFoundResponse.body {
-            case .json(let error):
-                print("\(error)")
-                apiError = .notFound
+
+        do {
+            let response = try await client.getUserById(path: .init(id: id))
+
+            switch response {
+            case .ok(let okResponse):
+                switch okResponse.body {
+                case .json(let user):
+                    getUserByIdResponse = [user]
+                }
+            case .notFound(let notFoundResponse):
+                switch notFoundResponse.body {
+                case .json(let error):
+                    print("\(error)")
+                    apiError = .notFound
+                    showAlert = true
+                }
+            case .undocumented(statusCode: let statusCode, _):
+                print("\(statusCode)")
+                apiError = .undocumented
                 showAlert = true
             }
-        case .undocumented(statusCode: let statusCode, _):
-            print("\(statusCode)")
-            apiError = .undocumented
+        } catch {
+            print("\(error)")
+            apiError = .unexpected
             showAlert = true
         }
     }

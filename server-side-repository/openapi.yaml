@@ -116,9 +116,6 @@ components:
               type: string
     Error:
       type: object
-      required:
-        - code
-        - message
       properties:
         code:
           type: integer

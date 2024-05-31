@@ -10,6 +10,7 @@ enum APIType: CaseIterable {
 enum APIError: LocalizedError {
     case notFound
     case undocumented
+    case unexpected
     
     // alert title
     var errorDescription: String? {
