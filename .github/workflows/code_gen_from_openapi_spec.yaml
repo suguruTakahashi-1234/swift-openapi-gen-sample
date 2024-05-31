@@ -1,8 +1,8 @@
-name: API Request Code Gen
+name: Code Gen From OpenAPI Spec
 
 on:
   repository_dispatch:
-    types: [openapi-update]
+    types: [update-open-api-spec]
   workflow_dispatch:
 
 permissions:
@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
 
 env:
-  gh_token: ${{ secrets.IOS_TEAM_PAT }}
+  gh_token: ${{ secrets.IOS_TEAM_PAT }} # IOS_TEAM_PAT: project, read:org, repo
   # iOS
   ios_repo: suguruTakahashi-1234/swift-openapi-gen-sample
   ios_openapi_path: schema/openapi.yaml
@@ -20,7 +20,8 @@ env:
 
 jobs:
   codegen:
-    runs-on: ubuntu-latest
+    runs-on: macos-14
+    timeout-minutes: 300
 
     steps:
     - name: Log start of workflow

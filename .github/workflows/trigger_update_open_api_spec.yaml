@@ -1,4 +1,4 @@
-name: Trigger openapi-update
+name: Trigger update-open-api-spec
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 env:
   ios_repo: suguruTakahashi-1234/swift-openapi-gen-sample
-  event_type: openapi-update
+  event_type: update-open-api-spec
 
 jobs:
   trigger-codegen:
