@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -14,15 +14,15 @@ let package = Package(
     ],
     dependencies: [
         // swift-openapi-generator
-        .package(url: "https://github.com/apple/swift-openapi-generator.git", from: "1.2.1"), // CLI Only
-        .package(url: "https://github.com/apple/swift-openapi-urlsession", from: "1.0.1"), // Use URLSession
+        .package(url: "https://github.com/apple/swift-openapi-generator.git", from: "1.3.0"), // CLI Only
+        .package(url: "https://github.com/apple/swift-openapi-urlsession", from: "1.0.2"), // Use URLSession
         .package(url: "https://github.com/swift-server/swift-openapi-async-http-client", from: "1.0.0"), // Use AsyncHTTPClient
 
         // toast
         .package(url: "https://github.com/sanzaru/SimpleToast.git", from: "0.8.1"),
         
         // shimmer animation
-        .package(url: "https://github.com/markiv/SwiftUI-Shimmer.git", from: "1.5.0"),
+        .package(url: "https://github.com/markiv/SwiftUI-Shimmer.git", from: "1.5.1"),
         
     ],
     targets: [
